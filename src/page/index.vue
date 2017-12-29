@@ -10,18 +10,22 @@
   export default {
     data () {
       return {
-        lists: [
-          {
-            id: 1,
-            title: 'test title 1'
-          },
-          {
-            id: 2,
-            title: 'test title 2'
-          }
-        ]
+        lists: []
       }
-    }
+    },
+    created () {
+      this.get_data()
+    },
+    methods: {
+      get_data: function(params) {
+        var v = this
+        if(!params) params = {}
+        //我们这里用全局绑定的$api方法来获取数据，方便吧
+        v.$api.get('topics', params, function(r){
+          v.lists = r.data
+        })
+      },
+    },
   }
 </script>
 <style>
